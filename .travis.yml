@@ -22,7 +22,7 @@ services:
 # Cache Composer & Drush directories.
 cache:
   directories:
-    - $HOME/.composer/cache
+    - $HOME/config/.composer/cache
     - $HOME/.drush/cache
 
 mysql:
