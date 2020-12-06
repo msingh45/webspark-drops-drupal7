@@ -57,7 +57,7 @@ install:
 
   # Install latest Drush 7.x.
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
-  - composer global require --no-interaction drush/drush:7.*
+  - composer global require --no-interaction drush/drush:8.*
 
   # Download LATEST_RELEASE of ChromeDriver
 
