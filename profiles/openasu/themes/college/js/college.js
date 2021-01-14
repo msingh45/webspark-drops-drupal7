@@ -11,6 +11,10 @@
       $("#asu_mobile_menu").wrapInner("<div class='asu_mobile_menu_wrapper'></div>");
       // Add header to Ctools Modal menu to improve UI
       $(".panels-add-content-modal .panels-categories-box").after("<h2 class=\"widget-list\">More Content Panes</h2>");
+      // College theme event listener
+      $(window).resize(function() {
+        college_adjustNavbar();
+      });
     }
   };
 
@@ -76,6 +80,24 @@
   function smoothScroll(hash) { // jshint ignore:line
     $("html,body").animate({scrollTop: $(hash).offset().top - offsetTop()}, "slow");
     window.location.hash = hash;
+  }
+
+  // College theme - header spacing fix
+  function college_adjustNavbar()
+  { 
+    // Checks if it is mobile view, but still has sticky admin menu header
+    if ($(window).width() > 674 && $(window).width() < 992)
+    {
+      // Gets height of admin menu and ASU header
+      const adminNavHeight = $("#navbar-bar").height() != null ? $("#navbar-bar").height() : 0;
+      const asuNavHeight = $(".navbar-component").height() != null ? $(".navbar-component").height() : 0;
+      // Adds top margin to header to account for admin menu
+      $("#headerContainer header").css("margin-top", adminNavHeight + "px");
+      // Adds bottom margin to header to display main page content covered by header
+      $("#page header").css("margin-bottom", asuNavHeight + "px");
+      // Debug
+      console.log("admin height: " +  adminNavHeight + "asu Height: " + asuNavHeight);
+    }
   }
 
   // WEBSPARK-897 - Stop conflict between Token module (and its jQuery calls) and Bootstrap's button() function.
