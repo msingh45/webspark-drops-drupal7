@@ -12,6 +12,10 @@
       // Add header to Ctools Modal menu to improve UI
       $(".panels-add-content-modal .panels-categories-box").after("<h2 class=\"widget-list\">More Content Panes</h2>");
       // College theme event listener
+      
+      $(window).load(function() {
+        college_adjustNavbar();
+      });
       $(window).resize(function() {
         college_adjustNavbar();
       });
@@ -82,21 +86,26 @@
     window.location.hash = hash;
   }
 
-  // College theme - header spacing fix
   function college_adjustNavbar()
-  { 
-    // Checks if it is mobile view, but still has sticky admin menu header
-    if ($(window).width() > 674 && $(window).width() < 992)
+  {
+    // Get full height of ASU mobile header and admin navbar (including margin and padding)
+    let adminNavHeight = $("#navbar-bar").height() != null ? $("#navbar-bar").outerHeight() : 0;
+    let asuNavHeight = $(".navbar-component").outerHeight() != null ? $(".navbar-component").outerHeight() : 0;
+
+    // Checks if in mobile view
+    if ($(window).width() < 992)
     {
-      // Gets height of admin menu and ASU header
-      const adminNavHeight = $("#navbar-bar").height() != null ? $("#navbar-bar").height() : 0;
-      const asuNavHeight = $(".navbar-component").height() != null ? $(".navbar-component").height() : 0;
-      // Adds top margin to header to account for admin menu
-      $("#headerContainer header").css("margin-top", adminNavHeight + "px");
-      // Adds bottom margin to header to display main page content covered by header
+      // Add spacing to top and bottom to acount for admin heading and sticky header space
+      $(".navbar-component").css("margin-top", (adminNavHeight) + "px");
       $("#page header").css("margin-bottom", asuNavHeight + "px");
       // Debug
-      console.log("admin height: " +  adminNavHeight + "asu Height: " + asuNavHeight);
+      // console.log("admin height: " +  adminNavHeight + "asu Height: " + asuNavHeight);
+    }
+    // Reverts fix when not in mobile during window resize
+    else
+    {
+      $(".navbar-component").css("margin-top", "0px");
+      $("#page header").css("margin-bottom", "0px");
     }
   }
 
